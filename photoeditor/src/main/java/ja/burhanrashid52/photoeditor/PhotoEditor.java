@@ -99,6 +99,15 @@ public class PhotoEditor implements BrushViewChangeListener {
             }*/
         }
     }
+    
+    public View getLastView(){
+        if (addedViews != null  && !addedViews.isEmpty()){
+            if(addedViews.get(addedViews.size() -1) != null){
+                return addedViews.get(addedViews.size() -1);
+            } 
+        }
+        return null;
+    }
 
     public PhotoEditorView getPhotoEditorView(){
         return parentView;
