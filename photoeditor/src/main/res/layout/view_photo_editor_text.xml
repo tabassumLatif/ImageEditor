@@ -11,7 +11,7 @@
         android:layout_margin="2dp"
         android:background="@drawable/rounded_border_tv">
 
-        <TextView
+        <ja.burhanrashid52.photoeditor.SmartTextView
             android:id="@+id/tvPhotoEditorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
