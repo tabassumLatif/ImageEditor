@@ -19,20 +19,9 @@ public class SmartTextView extends AppCompatTextView {
 
     private static final String TAG = SmartTextView.class.getSimpleName();
 
-    private static final HashMap<FontType, Typeface> mRegisteredFonts = new HashMap<>();
-
-    public static void registerFont(FontType fType, Typeface fTypeface) {
-        if (mRegisteredFonts.containsKey(fType)) mRegisteredFonts.remove(fType);
-        mRegisteredFonts.put(fType, fTypeface);
-    }
-    public static Typeface getFontTypeface(FontType fType) {
-        return mRegisteredFonts.get(fType);
-    }
-
     private boolean mJustified;
     private boolean mAllCaps;
-    private FontType mFontType;
-
+    
     private int mFirstLineTextHeight = 0;
     private Rect mLineBounds = new Rect();
 
@@ -58,30 +47,15 @@ public class SmartTextView extends AppCompatTextView {
             TypedArray attrArray = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.SmartTextView, 0, 0);
             if (attrArray != null) {
                 mJustified = attrArray.getBoolean(R.styleable.SmartTextView_justified, false);
-                mFontType = FontType.values()[attrArray.getInt(R.styleable.SmartTextView_font, 1)];
                 mAllCaps = attrArray.getBoolean(R.styleable.SmartTextView_android_textAllCaps, false);
                 styleIndex = attrArray.getInt(R.styleable.SmartTextView_android_textStyle, 0);
             }
         }
 
-        setTypeface(getFontTypeface(), styleIndex);
-    }
-
-    private Typeface getFontTypeface() {
-        return !mRegisteredFonts.containsKey(mFontType) ? getTypeface() : mRegisteredFonts.get(mFontType);
     }
 
     public void setJustified(boolean justified) {
         mJustified = justified;
-    }
-
-    public void setFontType(FontType fType) {
-        mFontType = fType;
-        setTypeface(getFontTypeface());
-    }
-    public void setFontType(FontType fType, int style) {
-        mFontType = fType;
-        setTypeface(getFontTypeface(), style);
     }
 
     @Override
@@ -92,7 +66,6 @@ public class SmartTextView extends AppCompatTextView {
 
     @Override
     public void setTypeface(Typeface tf, int style) {
-        if (tf == null) tf = getFontTypeface();
         super.setTypeface(tf, style);
     }
 
@@ -214,7 +187,5 @@ public class SmartTextView extends AppCompatTextView {
         }
     }
 
-    public enum FontType {
-        Thin, Reg, Thick
-    }
+    
 }
